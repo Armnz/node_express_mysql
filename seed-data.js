@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-const DB_NAME = 'my_first_database'
+const DB_NAME = 'codelex_zoo_database';
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -39,10 +39,12 @@ connection.connect((err) => {
 
       // Define the SQL query to create a table if not exists
       const createTableQuery = `
-        CREATE TABLE IF NOT EXISTS users (
+        CREATE TABLE IF NOT EXISTS animals (
           id INT AUTO_INCREMENT PRIMARY KEY,
           name VARCHAR(255) NOT NULL,
-          email VARCHAR(255) NOT NULL
+          species VARCHAR(255) NOT NULL,
+          imageLink VARCHAR(255),
+          createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
       `;
 
@@ -54,14 +56,14 @@ connection.connect((err) => {
           return;
         }
 
-        console.log('Table "users" created or already exists');
+        console.log('Table "animals" created or already exists');
 
-        // Define the SQL query to insert data into the table
+        // Define the SQL query to insert sample data into the table
         const insertDataQuery = `
-          INSERT INTO users (name, email) VALUES
-            ('John Doe', 'john@example.com'),
-            ('Jane Doe', 'jane@example.com'),
-            ('Bob Smith', 'bob@example.com')
+          INSERT INTO animals (name, species, imageLink) VALUES
+            ('Lion', 'Panthera leo', 'link-to-lion-image'),
+            ('Tiger', 'Panthera tigris', 'link-to-tiger-image'),
+            ('Elephant', 'Loxodonta', 'link-to-elephant-image')
         `;
 
         // Execute the query to insert data
@@ -69,7 +71,7 @@ connection.connect((err) => {
           if (insertDataError) {
             console.error('Error inserting data:', insertDataError);
           } else {
-            console.log('Data inserted or already exists');
+            console.log('Sample data inserted');
           }
 
           // Close the connection
