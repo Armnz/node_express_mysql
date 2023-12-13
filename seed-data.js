@@ -40,11 +40,12 @@ connection.connect((err) => {
       // Define the SQL query to create a table if not exists
       const createTableQuery = `
         CREATE TABLE IF NOT EXISTS animals (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          name VARCHAR(255) NOT NULL,
-          species VARCHAR(255) NOT NULL,
-          imageLink VARCHAR(255),
-          createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        species VARCHAR(255) NOT NULL,
+        gender ENUM('female', 'male') NOT NULL,
+        imageLink VARCHAR(255),
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
       `;
 
@@ -60,10 +61,10 @@ connection.connect((err) => {
 
         // Define the SQL query to insert sample data into the table
         const insertDataQuery = `
-          INSERT INTO animals (name, species, imageLink) VALUES
-            ('Lion', 'Panthera leo', 'link-to-lion-image'),
-            ('Tiger', 'Panthera tigris', 'link-to-tiger-image'),
-            ('Elephant', 'Loxodonta', 'link-to-elephant-image')
+          INSERT INTO animals (name, species, gender, imageLink) VALUES
+            ('King', 'Lion', 'male', 'https://loremflickr.com/320/240/lion'),
+            ('Tīģeris', 'Tiger', 'female', 'https://loremflickr.com/320/240/tiger'),
+            ('Big nose', 'Elephant', 'male', 'https://loremflickr.com/320/240/elephant')
         `;
 
         // Execute the query to insert data
